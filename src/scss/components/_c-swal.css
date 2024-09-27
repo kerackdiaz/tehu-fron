@@ -1,0 +1,34 @@
+.swal2-container {
+  .swal2-popup {
+    background-color: #F3FCFF;
+    width: 30rem;
+    border-radius: 1.5rem;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+
+    .swal2-title {
+      font-size: 2.5rem;
+    }
+
+    .swal2-html-container {
+      font-size: 1rem;
+    }
+    .swal2-styled {
+      display: block;
+      background-color: #76BCE9;
+      color: #ffffff;
+      border-radius: 50px;
+      font-size: 1rem;;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      width: 15rem;
+      max-width: 100%;
+      cursor: pointer;
+    }
+    .swal2-confirm {
+      &:focus  {
+        box-shadow: none;
+      }
+    }
+  }
+}
