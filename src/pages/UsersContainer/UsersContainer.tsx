@@ -6,8 +6,8 @@ import Modal from "../../components/molecules/Modal/Modal"
 import AddUser from '../../components/organisms/AddUser/AddUser';
 import AddIcon from '@mui/icons-material/Add';
 
-import userGetSubordinate from '../../services/userGetSubordinate';
-import { userContext } from '../../main';
+// import userGetSubordinate from '../../services/userGetSubordinate';
+// import { userContext } from '../../main';
 
 type UserListKeys = 'all' | 'admin' | 'coordinator' | 'operator';
 interface User {
@@ -25,15 +25,11 @@ interface User {
 
 const UsersContainer = () => {
 
-  const { userInfo } = useContext(userContext)
+  // const { userInfo } = useContext(userContext)
   const [isOpen, setIsOpen] = useState(false);
   const [typeUser, setTypeuser] = useState<UserListKeys>('all');
-  const [listUser, setListUser] = useState({
-    all: [],
-    admin: [],
-    coordinator: [],
-    operator: []
-  });
+  const [listUser, setListUser] = useState<User[]>([]);
+  // const [filteredUserList, setFilteredUserList] = useState<User[]>([]);
 
   // useEffect(() => {
   //   const getLisUsers = async () => {
@@ -53,31 +49,33 @@ const UsersContainer = () => {
   //   getLisUsers()
   // }, [])
 
-  useEffect(() => {
+
     // Usuarios ficticios 
+  useEffect(() => {
     const mockUsers: User[] = [
-      { company: 'Company A', id: 621354, name: 'Juan Pérez', position: "Gerente General", email: 'juan.perez@example.com', phone: '123456789', rol: 'Administrador', identificationNumber: '12345678' },
-      { company: 'Company B', id: 123456, name: 'María López', position: "Supervisor", email: 'maria.lopez@example.com', phone: '987654321', rol: 'Coordinador', identificationNumber: '87654321' },
-      { company: 'Company C', id: 123456, name: 'Carlos García', position: "Operador Logístico", email: 'carlos.garcia@example.com', phone: '456789123', rol: 'Operador', identificationNumber: '45678912' },
-      { company: 'Company D', id: 123456, name: 'Ana Gómez', position: "Enfermera", email: 'ana.gomez@example.com', phone: '789123456', rol: 'Administrador', identificationNumber: '78912345' },
-      { company: 'Company E', id: 123456, name: 'Pedro Gómez', position: "Enfermero", email: 'pedro.gierre@example.com', phone: '789123456', rol: 'Coordinador', identificationNumber: '78912345' },
-      { company: 'Company F', id: 123456, name: 'Luisa Gómez', position: "Enfermera", email: 'luisa.gierre@example.com', phone: '789123456', rol: 'Operador', identificationNumber: '78912345' },
-      { company: 'Company G', id: 123456, name: 'Carlos Gómez', position: "Enfermero", email: 'carlos.gierre@example.com', phone: '789123456', rol: 'Operador', identificationNumber: '78912345' },
+      { company: 'Company A', id: 621354, name: 'Juan Pérez', position: "Gerente General", email: 'juan.perez@example.com', phone: '123456789', rol: 'admin', identificationNumber: '12345678' },
+      { company: 'Company D', id: 123456, name: 'Ana Gómez', position: "Enfermera", email: 'ana.gomez@example.com', phone: '789123456', rol: 'admin', identificationNumber: '78912345' },
+      { company: 'Company B', id: 234567, name: 'María López', position: "Supervisor", email: 'maria.lopez@example.com', phone: '987654321', rol: 'coordinator', identificationNumber: '87654321' },
+      { company: 'Company E', id: 345678, name: 'Pedro Gómez', position: "Enfermero", email: 'pedro.gierre@example.com', phone: '789123456', rol: 'coordinator', identificationNumber: '78912345' },
+      { company: 'Company C', id: 456789, name: 'Carlos García', position: "Operador Logístico", email: 'carlos.garcia@example.com', phone: '456789123', rol: 'operator', identificationNumber: '45678912' },
+      { company: 'Company F', id: 567890, name: 'Luisa Gómez', position: "Enfermera", email: 'luisa.gierre@example.com', phone: '789123456', rol: 'operator', identificationNumber: '78912345' },
+      { company: 'Company G', id: 678901, name: 'Carlos Gómez', position: "Enfermero", email: 'carlos.gierre@example.com', phone: '789123456', rol: 'operator', identificationNumber: '78912345' },
     ];
+    setListUser(mockUsers);
+  }, []);
 
-    // Filtro por rol para las categorías
-    const admin = mockUsers.filter(user => user.rol === 'Administrador');
-    const coordinator = mockUsers.filter(user => user.rol === 'Coordinador');
-    const operator = mockUsers.filter(user => user.rol === 'Operador');
+  const filteredUserList = listUser.filter(user => {
+    if (typeUser === 'all') return true;
+    return user.rol === typeUser;
+  });
 
-    // Actualización del estado con los usuarios 
-    setListUser({
-      all: mockUsers,
-      admin,
-      coordinator,
-      operator
-    });
-  }, []); 
+  const mapToRegisterInfo = (user: User): RegisterInfo => ({
+    ...user,
+    password: '', // Si es necesario, puedes ajustar este campo
+    rolId: "", // Ajusta este valor según corresponda
+  });
+
+
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -117,8 +115,8 @@ const UsersContainer = () => {
               </tr>
             </thead>
             <tbody>
-              {listUser && listUser[typeUser].map((user: RegisterInfo) => (
-                <ItemListUser key={user.id} {...user} />
+              {filteredUserList.map((user) => (
+                <ItemListUser key={user.id} {...mapToRegisterInfo(user)} />
               ))}
               
             </tbody>

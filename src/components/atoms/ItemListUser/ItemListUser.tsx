@@ -28,7 +28,7 @@ const ItemListUser = ({ id, name, position, email, rol, phone, identificationNum
 
       <td className='min-w-[240px] text-center'>{email}</td>
       <td className='min-w-[80px] text-center'>{identificationNumber}</td>
-      <td className='min-w-[160px] text-center'>{rol}</td>
+      <td className='min-w-[160px] text-center'>{rol === 'admin' ? 'Administrador' : rol === 'coordinator' ? 'Coordinador' : 'Operador' }</td>
       <td className='min-w-[160px] text-center'>{phone}</td>
       <td className='min-w-[160px] text-center text-blueLight font-bold'>No. {id}</td>
       <td className='min-w-[160px] text-center text-blueLight font-bold'>

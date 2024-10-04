@@ -178,11 +178,11 @@ const StatusCardDevices: React.FC<StatusCardDevicesProps> = ({ devices }) => {
               <div className="bg-blueDark justify-center items-center flex p-4 gap-2 rounded-b-xl">
                 <a href="#">{device.online}</a>
                 {/* <button className="btn-edit" onClick={() => handleEdit(device)}>VER DETALLE</button> */}
-                <button className="bg-gray-100 text-blueDark text-xs w-32 rounded-full p-1 font-semibold hover:bg-transparent hover:border hover:border-whiteLight hover:text-whiteLight transition-all duration-300" onClick={() => handleEdit(device)}>VER DETALLE</button>
-                <button className="flex items-center justify-center gap-1 border-gray-100 border text-whiteLight text-xs w-32 rounded-full p-1 font-semibold hover:bg-whiteLight hover:text-blueDark transition-all duration-300">
+                <button className="bg-gray-100 text-blueDark text-xs w-48 rounded-full p-1 font-semibold hover:bg-transparent hover:border hover:border-whiteLight hover:text-whiteLight transition-all duration-300" onClick={() => handleEdit(device)}>VER DETALLE</button>
+                {/* <button className="flex items-center justify-center gap-1 border-gray-100 border text-whiteLight text-xs w-32 rounded-full p-1 font-semibold hover:bg-whiteLight hover:text-blueDark transition-all duration-300">
                   ASIGNAR VIAJE
                   <LocationOnIcon sx={{ fontSize: 15 }} />
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
